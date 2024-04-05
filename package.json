@@ -4,7 +4,12 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prisma:generate": "npm run with:env -- npm run prisma:generate -w @gymcents/prisma",
+    "prisma:migrate-dev": "npm run with:env -- npm run prisma:migrate-dev -w @gymcents/prisma",
+    "prisma:migrate-deploy": "npm run with:env -- npm run prisma:migrate-deploy -w @gymcents/prisma",
+    "prisma:seed": "npm run with:env -- npm run prisma:seed -w @gymcents/prisma",
+    "prisma:studio": "npm run with:env -- npm run prisma:studio -w @gymcents/prisma"
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
