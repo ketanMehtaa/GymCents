@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: 'user portal for gymcents',
 };
 
-export default function RootLayout({ children, session }: { children: React.ReactNode; session?: Session | null }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <NextAuthProvider>
       <RecoidContextProvider>

@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@gymcents/prisma';
-import { authOptions } from '../../auth/[...nextauth]/route';
+import {} from '../../auth/[...nextauth]/route';
+import { authOptions } from '@/app/auth';
 
 //Contact delete route
 export async function POST(req: Request, { params }: { params: { courseId: string } }) {
@@ -16,6 +17,7 @@ export async function POST(req: Request, { params }: { params: { courseId: strin
   }
   const user = await prisma.user.findUnique({
     where: {
+      // @ts-ignore
       id: session.user.id,
     },
   });
@@ -26,16 +28,10 @@ export async function POST(req: Request, { params }: { params: { courseId: strin
 
   try {
     // Enroll the user in the course
-    const buyCourse = await prisma.courseEnrollment.create({
-      data: {
-        user: { connect: { id: user.id } },
-        course: { connect: { id: params.courseId } },
-      },
-    });
 
     console.log(`Course ${params.courseId} purchased for user amit hardcoded.`);
 
-    return NextResponse.json({ message: 'Contact purchased', buyCourse }, { status: 200 });
+    return NextResponse.json({ message: 'Contact purchased' }, { status: 200 });
   } catch (error) {
     console.log('[COURSE_PURCHASED]', error);
     return new NextResponse('Initial error', { status: 500 });

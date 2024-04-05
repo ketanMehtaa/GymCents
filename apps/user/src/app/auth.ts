@@ -4,21 +4,22 @@ import { prisma } from '@gymcents/prisma';
 
 import GoogleProvider from 'next-auth/providers/google';
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET || '',
+      clientId: process.env.NEXT_GOOGLE_CLIENT_ID_USER || '',
+      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET_USER || '',
     }),
     CredentialsProvider({
       id: 'credentials',
       name: 'Credentials',
       type: 'credentials',
       credentials: {
-        email: { label: 'email', type: 'text', value: 'admin@gmail.com' },
-        password: { label: 'Password', type: 'password', value: 'admin' },
+        email: { label: 'email', type: 'text', value: 'meetketanmehta@gmail.com' },
+        password: { label: 'Password', type: 'password', value: 'ketan' },
       },
+
       async authorize(credentials, req) {
         // await ensureDbConnected()
         if (!credentials) {
@@ -28,47 +29,41 @@ const authOptions: NextAuthOptions = {
         const password = credentials.password;
         // Add logic here to look up the user from the credentials supplied
         // const admin = await Admin.findOne({ email });
-        const admin = await prisma.admin.findUnique({
+        const user = await prisma.user.findUnique({
           where: {
             email: email, // Assuming 'body' contains the incoming request's data
           },
         });
 
-        if (!admin) {
-          const admin = await prisma.admin.create({
+        if (!user) {
+          const user = await prisma.user.create({
             data: {
               email: email,
               password: password,
             },
           });
-          console.log('newAdmin', admin);
+          console.log('user data', user);
           return {
-            id: admin.id, // Replace 'id' with the actual ID field from your admin object
-            email: admin.email, // Replace 'email' with the field containing the email
-            name: admin.name,
-            image: admin.image,
+            id: user.id,
+            email: user.email,
+            name: user?.name,
+            image: user?.image,
           };
-
-          // };
         } else {
           //TODO:: Make this safer, encrypt passwords
           // if (admin.password !== password) {
           //   return null;
           // }
-          if (admin && admin.password !== password) {
+          if (user && user.password !== password) {
             return null;
           }
-          // User is authenticated
-          // return {
-          //   id: admin._id,
-          //   email: admin.email,
-          // };
-          console.log('admin ', admin);
+          // User password is correct continue
+          console.log('user ', user);
           return {
-            id: admin.id, // Replace 'id' with the actual ID field from your admin object
-            email: admin.email, // Replace 'email' with the field containing the email
-            name: admin.name,
-            image: admin.image,
+            id: user.id,
+            email: user.email,
+            name: user?.name,
+            image: user?.image,
           };
         }
       },
@@ -83,34 +78,35 @@ const authOptions: NextAuthOptions = {
     // encryption: true,
   },
   callbacks: {
-    async signIn({ user: admin, account, profile, email, credentials }) {
-      console.log('callback admin signin', { admin, account, profile, email, credentials });
-      if (!admin.email) {
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log('callback user signin', { user, account, profile, email, credentials });
+      if (!user.email) {
         return false;
       }
       if (account?.provider === 'google') {
-        const adminExists = await prisma.admin.findUnique({
-          where: { email: admin.email },
+        const userExists = await prisma.user.findUnique({
+          where: { email: user.email },
           select: { name: true },
         });
-        // if the admin already exists via email,
-        // update the admin with their name and image from Google
-        if (adminExists && !adminExists.name) {
-          await prisma.admin.update({
-            where: { email: admin?.email },
+        // if the user already exists via email,
+        // update the user with their name and image from Google
+        if (userExists && !userExists.name) {
+          await prisma.user.update({
+            where: { email: user?.email },
             data: {
               name: profile?.name,
               // @ts-ignore - this is a bug in the types, `picture` is a valid on the `Profile` type
               image: profile?.picture,
             },
           });
-        } else if (!adminExists) {
-          await prisma.admin.create({
+        } else if (!userExists) {
+          await prisma.user.create({
             data: {
-              // @ts-ignore - this is a bug in the types, `picture` is a valid on the `Profile` type
+              // @ts-ignore
+
               image: profile?.picture,
               name: profile?.name,
-              email: admin.email,
+              email: user.email,
             },
           });
         }
@@ -124,24 +120,22 @@ const authOptions: NextAuthOptions = {
     //   return baseUrl;
     // },
     async session({ session, token }) {
-      const admin = await prisma.admin.findUnique({
+      const user = await prisma.user.findUnique({
         // @ts-ignore
+
         where: { email: session.user.email },
-        // select: { id: true, name: true },
+        select: { id: true, name: true },
       });
       // @ts-ignore
-
-      session.user.id = admin.id;
-      // session.admin.name = admin?.name;
+      session.user.id = user.id;
+      // @ts-ignore
+      //todo check all ts ignore parts
+      session.user.name = user?.name;
 
       return session;
     },
-    // async jwt({ token, admin, account, profile, isNewUser }) {
+    // async jwt({ token, user, account, profile, isNewUser }) {
     //   return token;
     // },
   },
 };
-
-const handler = nextAuth(authOptions);
-
-export { handler as GET, handler as POST };

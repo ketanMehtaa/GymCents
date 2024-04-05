@@ -4,7 +4,6 @@ import './globals.css';
 import RecoidContextProvider from './recoilContextProvider';
 import Header from './Header';
 import { NextAuthProvider } from '@/providers/next-auth';
-import { Session } from 'next-auth';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
   description: 'course',
 };
 
-export default function RootLayout({ children, session }: { children: React.ReactNode; session?: Session | null }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <NextAuthProvider>
       <RecoidContextProvider>

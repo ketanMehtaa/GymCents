@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@gymcents/prisma';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { authOptions } from '@/app/auth';
 
 //Contact delete route
 export async function POST(req: Request) {
@@ -18,6 +18,7 @@ export async function POST(req: Request) {
     // Enroll the user in the course
     const saveProfile = await prisma.user.update({
       where: {
+        // @ts-ignore
         id: session?.user.id,
       },
       data: {

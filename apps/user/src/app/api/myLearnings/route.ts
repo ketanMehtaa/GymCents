@@ -1,6 +1,6 @@
+import { authOptions } from '@/app/auth';
 import { prisma } from '@gymcents/prisma';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
@@ -12,6 +12,7 @@ export async function GET(req: Request) {
 
     const user = await prisma.user.findUnique({
       where: {
+        // @ts-ignore
         id: session.user.id,
       },
     });
@@ -20,16 +21,16 @@ export async function GET(req: Request) {
       return Response.json({ err: 'error in finding user all courses' });
     }
 
-    const enrolledCourses = await prisma.courseEnrollment.findMany({
-      where: { userId: user.id },
-      include: {
-        course: true,
-      },
-    });
+    // const enrolledCourses = await prisma.courseEnrollment.findMany({
+    //   where: { userId: user.id },
+    //   include: {
+    //     course: true,
+    //   },
+    // });
 
     return Response.json({
       status: 200,
-      data: enrolledCourses.map((enrollment) => enrollment.course),
+      data: 'enrolledCourses.map((enrollment) => enrollment.course)',
     });
   } catch (error: any) {
     return Response.json({

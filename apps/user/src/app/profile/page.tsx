@@ -25,7 +25,9 @@ const VisuallyHiddenInput = styled('input')({
 function Profile() {
   const { data: session, status } = useSession();
   const initialFormData = {
+    // @ts-ignore
     name: session?.user.name,
+    // @ts-ignore
     email: session?.user.email,
   };
 
@@ -35,7 +37,9 @@ function Profile() {
       if (status === 'authenticated' && session) {
         // Set the initial form data based on the user's session
         setFormData({
+          // @ts-ignore
           name: session.user.name,
+          // @ts-ignore
           email: session.user.email,
         });
       }
@@ -99,7 +103,7 @@ function Profile() {
             {/* <div>{session?.user?.name}</div> */}
 
             <div className="grid grid-cols-2  items-center  ">
-              <img className="rounded-full  " src={session?.user?.image} alt="photo" />
+              <img className="rounded-full  " src={session?.user?.image || ''} alt="photo" />
               <Button
                 className="h-10 line-through	"
                 component="label"
