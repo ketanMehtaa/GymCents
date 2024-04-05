@@ -4,7 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "prisma generate",
+    "format": "prisma format",
+    "clean": "rimraf node_modules",
+    "post-install": "prisma generate",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate-dev": "prisma migrate dev --skip-seed",
+    "prisma:migrate-deploy": "prisma migrate deploy",
+    "prisma:seed": "prisma db seed",
+    "prisma:studio": "prisma studio"
+  },
+  "prisma": {
+    "seed": "ts-node --transpileOnly --project ./tsconfig.seed.json ./seed-database.ts"
   },
   "keywords": [],
   "author": "",
