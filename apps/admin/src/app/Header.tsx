@@ -51,7 +51,7 @@ export default function Header() {
             )}
             {!session && (
               // <Link href="/signIn">
-              <Button onClick={() => signIn('', { callbackUrl: '/home' })} color="inherit">
+              <Button onClick={() => signIn()} color="inherit">
                 Sign In
               </Button>
               // </Link>
