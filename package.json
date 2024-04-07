@@ -11,6 +11,9 @@
     "prisma:seed": "npm run with:env -- npm run prisma:seed -w @gymcents/prisma",
     "prisma:studio": "npm run with:env -- npm run prisma:studio -w @gymcents/prisma"
   },
+  "prisma": {
+    "schema": "packages/prisma/schema.prisma"
+  },
   "devDependencies": {
     "dotenv": "^16.3.1",
     "eslint": "^8.48.0",
@@ -29,5 +32,13 @@
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "pipeline": {
+    "db:generate": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    }
   }
 }
