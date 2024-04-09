@@ -13,6 +13,7 @@
     "@gymcents/prisma": "*",
     "@gymcents/ui": "*",
     "@gymcents/tailwind-config": "*",
+    "@gymcents/utils": "*",
     "axios": "^1.5.1",
     "next": "^14.0.4",
     "next-auth": "^4.24.5",

@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
 const nextConfig = {
-  transpilePackages: ['@gymcents/prisma', '@gymcents/lib', '@gymcents/ui'],
+  transpilePackages: [
+    '@gymcents/prisma',
+    '@gymcents/lib',
+    '@gymcents/ui',
+    '@gymcents/utils',
+    '@gymcents/tailwind-config',
+  ],
 };
 const ENV_FILES = ['.env', '.env.local', `.env.${process.env.NODE_ENV || 'development'}`];
 
