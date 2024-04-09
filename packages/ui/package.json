@@ -22,8 +22,7 @@
     "@types/react-dom": "^18.2.0",
     "eslint-config-custom": "*",
     "react": "^18.2.0",
-    "tsconfig": "*",
-    "@gymcents/utils": "*"
+    "tsconfig": "*"
   },
   "dependencies": {
     "@gymcents/utils": "*",
