@@ -19,7 +19,8 @@
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",
     "tsconfig": "*",
-    "turbo": "latest"
+    "turbo": "latest",
+    "@gymcents/tailwind-config": "*"
   },
   "name": "gymcents",
   "packageManager": "npm@8.19.4",
