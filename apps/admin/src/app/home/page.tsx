@@ -1,5 +1,4 @@
 'use client'; // This is a client component
-import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import { BASE_URL, BASE_URL_ADMIN_PRISMA } from '../../config.js';
@@ -9,6 +8,7 @@ import { useRecoilState } from 'recoil';
 import { logIn, loading } from '../../store';
 import Loader from '../loading';
 import { signIn, useSession } from 'next-auth/react';
+import { Button } from '@gymcents/ui';
 
 function Signin() {
   const router = useRouter();
@@ -66,6 +66,20 @@ function Signin() {
       </>
     );
   }
-  return <>{session ? <div>Home</div> : <div>please sign in.</div>}</>;
+  return (
+    <>
+      {session ? <div>Home</div> : <div>please sign in.</div>}
+
+      <div>
+        <Button text="Invite" className="h-9" />
+        {/* <Button
+          icon={<LinkIcon className="h-4 w-4 text-gray-800" />}
+          variant="secondary"
+          onClick={() => setShowInviteCodeModal(true)}
+          className="h-9"
+        /> */}
+      </div>
+    </>
+  );
 }
 export default Signin;
