@@ -3,17 +3,14 @@
   "description": "Utility functions and constants for gymcents",
   "version": "1",
   "sideEffects": false,
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.tts",
   "files": [
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup",
-    "lint": "eslint src/",
-    "dev": "tsup --watch",
-    "check-types": "tsc --noEmit"
+    "generate:component": "turbo gen react-component"
   },
   "peerDependencies": {
     "next": "14.2.0-canary.47",

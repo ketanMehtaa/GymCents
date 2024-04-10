@@ -8,6 +8,10 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "//": [
+    "comments ",
+    " 'dev': NODE_OPTIONS=--'inspect' next dev --port 3002 'build': 'next build'"
+  ],
   "dependencies": {
     "next": "^14.1.0",
     "react": "^18.2.0",
