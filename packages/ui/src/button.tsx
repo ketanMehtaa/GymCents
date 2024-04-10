@@ -1,7 +1,7 @@
 import { cn } from '@gymcents/utils';
 import { ReactNode } from 'react';
 import { LoadingSpinner } from './icons';
-// import { Tooltip } from './tooltip';
+import { Tooltip } from './tooltip';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
@@ -24,7 +24,7 @@ export function Button({
 }: ButtonProps) {
   if (disabledTooltip) {
     return (
-      <div>
+      <Tooltip content={disabledTooltip}>
         <div
           className={cn(
             'flex h-10 w-full cursor-not-allowed items-center justify-center space-x-2 rounded-md border border-gray-200 bg-gray-100 px-4 text-sm text-gray-400 transition-all focus:outline-none',
@@ -46,7 +46,7 @@ export function Button({
             </kbd>
           )}
         </div>
-      </div>
+      </Tooltip>
     );
   }
   return (
