@@ -1,21 +1,24 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import RecoidContextProvider from './recoilContextProvider';
-import Header from './Header';
-import { NextAuthProvider } from '@/providers/next-auth';
-import { Logo, MaxWidthWrapper } from '@gymcents/ui';
-import Link from 'next/link';
-import { Divider } from '@/ui/shared/icons';
-import { ReactNode, Suspense } from 'react';
-const inter = Inter({ subsets: ['latin'] });
+import { NextAuthProvider } from "@/providers/next-auth";
+import { Divider } from "@/ui/shared/icons";
+import { Logo, MaxWidthWrapper } from "@gymcents/ui";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Link from "next/link";
+import { Suspense } from "react";
+import "./globals.css";
+import RecoidContextProvider from "./recoilContextProvider";
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ADMIN',
-  description: 'course',
+  title: "ADMIN",
+  description: "course",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <NextAuthProvider>
       <RecoidContextProvider>
@@ -52,7 +55,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   {/* <UserDropdown /> */}
                 </div>
               </div>
-              <Suspense fallback={<div className="h-12 w-full" />}>{/* <NavTabs /> */}</Suspense>
+              <Suspense fallback={<div className="h-12 w-full" />}>
+                {/* <NavTabs /> */}
+              </Suspense>
             </MaxWidthWrapper>
           </div>
           {children}

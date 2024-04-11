@@ -1,18 +1,20 @@
-import { authOptions } from '@/app/auth';
-import { prisma } from '@gymcents/prisma';
-import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
+import { authOptions } from "@/app/auth";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return new NextResponse('Unauthenticated session not found in allcourses', { status: 401 });
+      return new NextResponse(
+        "Unauthenticated session not found in allcourses",
+        { status: 401 },
+      );
     }
 
     return Response.json({
       status: 200,
-      data: 'courses',
+      data: "courses",
     });
   } catch (error: any) {
     return Response.json({

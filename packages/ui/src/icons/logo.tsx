@@ -1,4 +1,4 @@
-import { cn } from '@gymcents/utils';
+import { cn } from "@gymcents/utils";
 
 export default function Logo({ className }: { className?: string }) {
   return (
@@ -8,7 +8,7 @@ export default function Logo({ className }: { className?: string }) {
       viewBox="0 0 191 191"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn('h-10 w-10 text-black', className)}
+      className={cn("h-10 w-10 text-black", className)}
     >
       <g clipPath="url(#clip0_1301_107)">
         <path

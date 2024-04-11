@@ -1,15 +1,15 @@
-import sharedConfig from '@gymcents/tailwind-config/tailwind.config';
-import type { Config } from 'tailwindcss';
+import sharedConfig from "@gymcents/tailwind-config/tailwind.config";
+import type { Config } from "tailwindcss";
 
-const config: Pick<Config, 'presets'> = {
+const config: Pick<Config, "presets"> = {
   presets: [
     {
       ...sharedConfig,
       content: [
-        './app/**/*.{js,ts,jsx,tsx}',
-        './ui/**/*.{js,ts,jsx,tsx}',
+        "./app/**/*.{js,ts,jsx,tsx}",
+        "./ui/**/*.{js,ts,jsx,tsx}",
         // h/t to https://www.willliu.com/blog/Why-your-Tailwind-styles-aren-t-working-in-your-Turborepo
-        '../../packages/ui/src/**/*{.js,.ts,.jsx,.tsx}',
+        "../../packages/ui/src/**/*{.js,.ts,.jsx,.tsx}",
       ],
       theme: {
         extend: {
@@ -17,14 +17,14 @@ const config: Pick<Config, 'presets'> = {
           animation: {
             ...sharedConfig?.theme?.extend?.animation,
             // Infinite scroll animation
-            'infinite-scroll': 'infinite-scroll 22s linear infinite',
+            "infinite-scroll": "infinite-scroll 22s linear infinite",
           },
           keyframes: {
             ...sharedConfig?.theme?.extend?.keyframes,
             // Infinite scroll animation
-            'infinite-scroll': {
-              '0%': { transform: 'translateX(0)' },
-              '100%': { transform: 'translateX(-150%)' },
+            "infinite-scroll": {
+              "0%": { transform: "translateX(0)" },
+              "100%": { transform: "translateX(-150%)" },
             },
           },
         },

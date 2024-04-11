@@ -1,23 +1,27 @@
-import nextAuth, { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@gymcents/prisma';
+import { prisma } from "@gymcents/prisma";
+import { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-import GoogleProvider from 'next-auth/providers/google';
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_GOOGLE_CLIENT_ID_USER || '',
-      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET_USER || '',
+      clientId: process.env.NEXT_GOOGLE_CLIENT_ID_USER || "",
+      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET_USER || "",
     }),
     CredentialsProvider({
-      id: 'credentials',
-      name: 'Credentials',
-      type: 'credentials',
+      id: "credentials",
+      name: "Credentials",
+      type: "credentials",
       credentials: {
-        email: { label: 'email', type: 'text', value: 'meetketanmehta@gmail.com' },
-        password: { label: 'Password', type: 'password', value: 'ketan' },
+        email: {
+          label: "email",
+          type: "text",
+          value: "meetketanmehta@gmail.com",
+        },
+        password: { label: "Password", type: "password", value: "ketan" },
       },
 
       async authorize(credentials, req) {
@@ -42,7 +46,7 @@ export const authOptions: NextAuthOptions = {
               password: password,
             },
           });
-          console.log('user data', user);
+          console.log("user data", user);
           return {
             id: user.id,
             email: user.email,
@@ -58,7 +62,7 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
           // User password is correct continue
-          console.log('user ', user);
+          console.log("user ", user);
           return {
             id: user.id,
             email: user.email,
@@ -71,7 +75,7 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   jwt: {
@@ -79,11 +83,17 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log('callback user signin', { user, account, profile, email, credentials });
+      console.log("callback user signin", {
+        user,
+        account,
+        profile,
+        email,
+        credentials,
+      });
       if (!user.email) {
         return false;
       }
-      if (account?.provider === 'google') {
+      if (account?.provider === "google") {
         const userExists = await prisma.user.findUnique({
           where: { email: user.email },
           select: { name: true },
@@ -111,7 +121,7 @@ export const authOptions: NextAuthOptions = {
           });
         }
         return true;
-      } else if (account?.provider === 'credentials') {
+      } else if (account?.provider === "credentials") {
         return true;
       } else return false;
       // check error above if facing problem in sign in

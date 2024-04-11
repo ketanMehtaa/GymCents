@@ -1,7 +1,6 @@
-'use client';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
@@ -9,5 +8,7 @@ export default function Home() {
   useEffect(() => {
     // router.push('/home');
   }, []);
-  return <h1 style={{ display: 'flex', justifyContent: 'center' }}>ADMIN LOADED</h1>;
+  return (
+    <h1 style={{ display: "flex", justifyContent: "center" }}>ADMIN LOADED</h1>
+  );
 }

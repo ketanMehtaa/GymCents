@@ -1,24 +1,28 @@
-'use client';
+"use client";
 
-import { nFormatter, timeAgo } from '@gymcents/utils';
-import * as TooltipPrimitive from '@radix-ui/react-tooltip';
-import Linkify from 'linkify-react';
-import { HelpCircle } from 'lucide-react';
-import Link from 'next/link';
-import { ReactNode, useState } from 'react';
-import { Badge } from './badge';
+import { nFormatter, timeAgo } from "@gymcents/utils";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import Linkify from "linkify-react";
+import { HelpCircle } from "lucide-react";
+import Link from "next/link";
+import { ReactNode, useState } from "react";
+import { Badge } from "./badge";
 
 export function TooltipProvider({ children }: { children: ReactNode }) {
-  return <TooltipPrimitive.Provider delayDuration={100}>{children}</TooltipPrimitive.Provider>;
+  return (
+    <TooltipPrimitive.Provider delayDuration={100}>
+      {children}
+    </TooltipPrimitive.Provider>
+  );
 }
 
 interface TooltipProps {
   children: ReactNode;
   content: ReactNode | string;
-  side?: 'top' | 'bottom' | 'left' | 'right';
+  side?: "top" | "bottom" | "left" | "right";
 }
 
-export function Tooltip({ children, content, side = 'top' }: TooltipProps) {
+export function Tooltip({ children, content, side = "top" }: TooltipProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -40,8 +44,10 @@ export function Tooltip({ children, content, side = 'top' }: TooltipProps) {
           side={side}
           className="animate-slide-up-fade z-[99] items-center overflow-hidden rounded-md border border-gray-200 bg-white shadow-md"
         >
-          {typeof content === 'string' ? (
-            <span className="block max-w-xs px-4 py-2 text-center text-sm text-gray-700">{content}</span>
+          {typeof content === "string" ? (
+            <span className="block max-w-xs px-4 py-2 text-center text-sm text-gray-700">
+              {content}
+            </span>
           ) : (
             content
           )}
@@ -89,10 +95,18 @@ export function TooltipContent({
   );
 }
 
-export function SimpleTooltipContent({ title, cta, href }: { title: string; cta: string; href: string }) {
+export function SimpleTooltipContent({
+  title,
+  cta,
+  href,
+}: {
+  title: string;
+  cta: string;
+  href: string;
+}) {
   return (
     <div className="max-w-xs px-4 py-2 text-center text-sm text-gray-700">
-      {title}{' '}
+      {title}{" "}
       <a
         href={href}
         target="_blank"
@@ -112,9 +126,10 @@ export function LinkifyTooltipContent({ children }: { children: ReactNode }) {
       <Linkify
         as="p"
         options={{
-          target: '_blank',
-          rel: 'noopener noreferrer nofollow',
-          className: 'underline underline-offset-4 text-gray-400 hover:text-gray-700',
+          target: "_blank",
+          rel: "noopener noreferrer nofollow",
+          className:
+            "underline underline-offset-4 text-gray-400 hover:text-gray-700",
         }}
       >
         {children}
@@ -133,7 +148,7 @@ export function InfoTooltip({ content }: { content: ReactNode | string }) {
 
 export function NumberTooltip({
   value,
-  unit = 'total clicks',
+  unit = "total clicks",
   children,
   lastClicked,
 }: {
@@ -165,11 +180,18 @@ export function NumberTooltip({
   );
 }
 
-export function BadgeTooltip({ children, content, side = 'bottom' }: TooltipProps) {
+export function BadgeTooltip({
+  children,
+  content,
+  side = "bottom",
+}: TooltipProps) {
   return (
     <Tooltip content={content} side={side}>
       <div className="flex cursor-pointer items-center">
-        <Badge variant="gray" className="border-gray-300 transition-all hover:bg-gray-200">
+        <Badge
+          variant="gray"
+          className="border-gray-300 transition-all hover:bg-gray-200"
+        >
           {children}
         </Badge>
       </div>

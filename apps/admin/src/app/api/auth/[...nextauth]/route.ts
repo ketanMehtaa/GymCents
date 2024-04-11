@@ -1,23 +1,23 @@
-import nextAuth, { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@gymcents/prisma';
+import { prisma } from "@gymcents/prisma";
+import nextAuth, { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-import GoogleProvider from 'next-auth/providers/google';
+import GoogleProvider from "next-auth/providers/google";
 
 const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET || '',
+      clientId: process.env.NEXT_GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET || "",
     }),
     CredentialsProvider({
-      id: 'credentials',
-      name: 'Credentials',
-      type: 'credentials',
+      id: "credentials",
+      name: "Credentials",
+      type: "credentials",
       credentials: {
-        email: { label: 'email', type: 'text', value: 'admin@gmail.com' },
-        password: { label: 'Password', type: 'password', value: 'admin' },
+        email: { label: "email", type: "text", value: "admin@gmail.com" },
+        password: { label: "Password", type: "password", value: "admin" },
       },
       async authorize(credentials, req) {
         // await ensureDbConnected()
@@ -41,7 +41,7 @@ const authOptions: NextAuthOptions = {
               password: password,
             },
           });
-          console.log('newAdmin', admin);
+          console.log("newAdmin", admin);
           return {
             id: admin.id, // Replace 'id' with the actual ID field from your admin object
             email: admin.email, // Replace 'email' with the field containing the email
@@ -63,7 +63,7 @@ const authOptions: NextAuthOptions = {
           //   id: admin._id,
           //   email: admin.email,
           // };
-          console.log('admin ', admin);
+          console.log("admin ", admin);
           return {
             id: admin.id, // Replace 'id' with the actual ID field from your admin object
             email: admin.email, // Replace 'email' with the field containing the email
@@ -76,7 +76,7 @@ const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   jwt: {
@@ -84,11 +84,17 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user: admin, account, profile, email, credentials }) {
-      console.log('callback admin signin', { admin, account, profile, email, credentials });
+      console.log("callback admin signin", {
+        admin,
+        account,
+        profile,
+        email,
+        credentials,
+      });
       if (!admin.email) {
         return false;
       }
-      if (account?.provider === 'google') {
+      if (account?.provider === "google") {
         const adminExists = await prisma.admin.findUnique({
           where: { email: admin.email },
           select: { name: true },
@@ -115,7 +121,7 @@ const authOptions: NextAuthOptions = {
           });
         }
         return true;
-      } else if (account?.provider === 'credentials') {
+      } else if (account?.provider === "credentials") {
         return true;
       } else return false;
       // check error above if facing problem in sign in

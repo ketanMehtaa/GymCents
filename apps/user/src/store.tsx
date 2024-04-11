@@ -1,21 +1,21 @@
-'use client'; // This is a client component
+"use client"; // This is a client component
 
-import { atom, RecoilState } from 'recoil';
+import { atom, RecoilState } from "recoil";
 
 export const logIn: any = atom({
-  key: 'logIn',
+  key: "logIn",
   default: false,
 });
 export const courses: any = atom({
-  key: 'courses',
+  key: "courses",
   default: [],
 });
 
 export const purchasedCourses: any = atom({
-  key: 'PurchasedCourse',
+  key: "PurchasedCourse",
   default: [],
 });
 export const loading: RecoilState<boolean> = atom({
-  key: 'load',
+  key: "load",
   default: true,
 });

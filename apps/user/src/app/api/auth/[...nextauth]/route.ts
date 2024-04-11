@@ -1,9 +1,6 @@
-import nextAuth, { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@gymcents/prisma';
+import nextAuth from "next-auth";
 
-import GoogleProvider from 'next-auth/providers/google';
-import { authOptions } from '@/app/auth';
+import { authOptions } from "@/app/auth";
 
 const handler = nextAuth(authOptions);
 

@@ -1,19 +1,22 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import RecoidContextProvider from './recoilContextProvider';
-import Header from './Header';
-import { NextAuthProvider } from '@/providers/next-auth';
-import { Session } from 'next-auth';
+import { NextAuthProvider } from "@/providers/next-auth";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Header from "./Header";
+import "./globals.css";
+import RecoidContextProvider from "./recoilContextProvider";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'USER',
-  description: 'user portal for gymcents',
+  title: "USER",
+  description: "user portal for gymcents",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <NextAuthProvider>
       <RecoidContextProvider>

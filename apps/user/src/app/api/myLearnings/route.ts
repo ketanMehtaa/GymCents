@@ -1,13 +1,16 @@
-import { authOptions } from '@/app/auth';
-import { prisma } from '@gymcents/prisma';
-import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
+import { authOptions } from "@/app/auth";
+import { prisma } from "@gymcents/prisma";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return new NextResponse('Unauthenticated session not found in allcourses', { status: 401 });
+      return new NextResponse(
+        "Unauthenticated session not found in allcourses",
+        { status: 401 },
+      );
     }
 
     const user = await prisma.user.findUnique({
@@ -16,9 +19,9 @@ export async function GET(req: Request) {
         id: session.user.id,
       },
     });
-    console.log('user', user);
+    console.log("user", user);
     if (!user || !user.id) {
-      return Response.json({ err: 'error in finding user all courses' });
+      return Response.json({ err: "error in finding user all courses" });
     }
 
     // const enrolledCourses = await prisma.courseEnrollment.findMany({
@@ -30,7 +33,7 @@ export async function GET(req: Request) {
 
     return Response.json({
       status: 200,
-      data: 'enrolledCourses.map((enrollment) => enrollment.course)',
+      data: "enrolledCourses.map((enrollment) => enrollment.course)",
     });
   } catch (error: any) {
     return Response.json({

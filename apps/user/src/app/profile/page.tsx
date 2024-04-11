@@ -1,25 +1,23 @@
-'use client';
-import { useSession } from 'next-auth/react';
-import Loader from '../loading';
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { useState, useEffect } from 'react';
-import { BASE_URL_ADMIN_PRISMA } from '@/config';
-import axios from 'axios';
+"use client";
+import { BASE_URL_ADMIN_PRISMA } from "@/config";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/material/styles";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import Loader from "../loading";
 
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
   height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
+  overflow: "hidden",
+  position: "absolute",
   bottom: 0,
   left: 0,
-  whiteSpace: 'nowrap',
+  whiteSpace: "nowrap",
   width: 1,
 });
 function Profile() {
@@ -34,7 +32,7 @@ function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       // Wait until the session is available
-      if (status === 'authenticated' && session) {
+      if (status === "authenticated" && session) {
         // Set the initial form data based on the user's session
         setFormData({
           // @ts-ignore
@@ -73,11 +71,11 @@ function Profile() {
         { formData },
         {
           headers: {
-            'Content-type': 'application/json',
+            "Content-type": "application/json",
           },
-        }
+        },
       );
-      console.log('response call', response);
+      console.log("response call", response);
 
       // setIsLoading(false);
       // setError('');
@@ -87,11 +85,11 @@ function Profile() {
       // setErro('Error creating course: ' + error?.message);
     }
   };
-  if (status === 'authenticated') {
+  if (status === "authenticated") {
     return (
       <>
-        <div className="flex items-center justify-center min-h-[80vh]">
-          <div className="grid grid-row border-4  gap-10 justify-center items-center shadow-md p-10">
+        <div className="flex min-h-[80vh] items-center justify-center">
+          <div className="grid-row grid items-center  justify-center gap-10 border-4 p-10 shadow-md">
             {/* <div>{session ? JSON.stringify(session.user) : null}</div> */}
             <TextField
               label="Name"
@@ -103,7 +101,11 @@ function Profile() {
             {/* <div>{session?.user?.name}</div> */}
 
             <div className="grid grid-cols-2  items-center  ">
-              <img className="rounded-full  " src={session?.user?.image || ''} alt="photo" />
+              <img
+                className="rounded-full  "
+                src={session?.user?.image || ""}
+                alt="photo"
+              />
               <Button
                 className="h-10 line-through	"
                 component="label"
@@ -124,7 +126,11 @@ function Profile() {
             />
             {/* <div>{session?.user?.email}</div> */}
 
-            <Button variant="outlined" className="bg-gray" onClick={() => saveProfile()}>
+            <Button
+              variant="outlined"
+              className="bg-gray"
+              onClick={() => saveProfile()}
+            >
               save
             </Button>
           </div>
@@ -133,7 +139,7 @@ function Profile() {
     );
   } else
     return (
-      <div className="flex items-center justify-center min-h-[80vh]">
+      <div className="flex min-h-[80vh] items-center justify-center">
         <Loader></Loader>
       </div>
     );

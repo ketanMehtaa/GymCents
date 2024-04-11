@@ -1,14 +1,14 @@
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { prisma } from '@gymcents/prisma';
-import { authOptions } from '@/app/auth';
+import { authOptions } from "@/app/auth";
+import { prisma } from "@gymcents/prisma";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 
 //Contact delete route
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return new NextResponse('Unauthenticated', { status: 401 });
+    return new NextResponse("Unauthenticated", { status: 401 });
   }
 
   try {
@@ -27,9 +27,12 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ message: 'profile saved', save: saveProfile }, { status: 200 });
+    return NextResponse.json(
+      { message: "profile saved", save: saveProfile },
+      { status: 200 },
+    );
   } catch (error) {
-    console.log('[COURSE_PURCHASED]', error);
-    return new NextResponse('Initial error', { status: 500 });
+    console.log("[COURSE_PURCHASED]", error);
+    return new NextResponse("Initial error", { status: 500 });
   }
 }
