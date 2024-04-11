@@ -1,10 +1,17 @@
 {
   "private": true,
+  "name": "gymcents",
+  "packageManager": "npm@8.19.4",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "format": "prettier . \"!apps/** !packages/** !tooling/**\" --check --cache --cache-location='node_modules/.cache/.prettiercache'",
+    "format:fix": "prettier . \"!apps/** !packages/** !tooling/**\" --write --cache --cache-location='node_modules/.cache/.prettiercache' ",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prisma:generate": "npm run with:env -- npm run prisma:generate -w @gymcents/prisma",
     "prisma:migrate-dev": "npm run with:env -- npm run prisma:migrate-dev -w @gymcents/prisma",
     "prisma:migrate-deploy": "npm run with:env -- npm run prisma:migrate-deploy -w @gymcents/prisma",
@@ -17,17 +24,13 @@
   "devDependencies": {
     "dotenv": "^16.3.1",
     "eslint": "^8.48.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.2.5",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-tailwindcss": "^0.5.11",
     "tsconfig": "*",
     "turbo": "latest",
     "@gymcents/tailwind-config": "*"
   },
-  "name": "gymcents",
-  "packageManager": "npm@8.19.4",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "dependencies": {
     "eslint-config-next": "^14.0.4",
     "next": "^14.0.4",
