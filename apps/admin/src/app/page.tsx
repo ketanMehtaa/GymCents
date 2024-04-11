@@ -7,7 +7,7 @@ export default function Home() {
   const router = useRouter();
   // router.push('/home');
   useEffect(() => {
-    router.push('/home');
+    // router.push('/home');
   }, []);
   return <h1 style={{ display: 'flex', justifyContent: 'center' }}>ADMIN LOADED</h1>;
 }
