@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { NextAuthProvider } from "../providers/next-auth";
-import "./globals.css";
 import RecoidContextProvider from "./recoilContextProvider";
 
 import { inter, satoshi } from "@/styles/fonts";
